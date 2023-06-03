@@ -1,0 +1,61 @@
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+
+<script>
+  // Paste your Firebase configuration here
+  var firebaseConfig = {
+    apiKey: "AIzaSyA49z3hOoZIap5VV5KbKXsRMtkFQz7PYS8",
+    authDomain: "pelano-47037.firebaseapp.com",
+    projectId: "pelano-47037",
+    storageBucket: "pelano-47037.appspot.com",
+    messagingSenderId: "680098536688",
+    appId: "1:680098536688:web:d90a14fa0010c7f29ef635",
+    measurementId: "G-46DTX26TX1"
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+  const messaging = firebase.messaging();
+</script>
+<script>
+  messaging.requestPermission()
+    .then(function() {
+      console.log("Notification permission granted.");
+      // You can now subscribe to push notifications
+    })
+    .catch(function(error) {
+      console.log("Unable to get permission to notify.", error);
+    });
+</script>
+<script>
+  messaging.getToken()
+    .then(function(token) {
+      console.log("Token:", token);
+      // Send the token to your server for sending push notifications
+    })
+    .catch(function(error) {
+      console.log("Error getting token:", error);
+    });
+</script>
+<script>
+  messaging.getToken()
+    .then(function(token) {
+      console.log("Token:", token);
+      // Send the token to your server for sending push notifications
+    })
+    .catch(function(error) {
+      console.log("Error getting token:", error);
+
+      if (error.code === 'messaging/permission-blocked') {
+        console.log("Notifications are blocked by the user.");
+        // Display a message to the user to enable notifications in their browser settings
+        // You can provide instructions or a button to redirect them to the settings page
+      } else {
+        console.log("Unable to get token:", error);
+        // Handle other errors that may occur
+      }
+    });
+</script>
+
